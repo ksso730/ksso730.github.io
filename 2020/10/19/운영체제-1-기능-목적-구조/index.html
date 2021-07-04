@@ -1,0 +1,744 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="동글씨">
+    <title>⚙️ 운영체제(1) 기능,목적,구조 - 동글씨</title>
+    <meta name="author" content="Suyan Kim">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Suyan Kim","sameAs":["https://github.com/ksso730","https://www.instagram.com/syankkim/"],"image":"https://www.gravatar.com/avatar/221eb22c21ff8475b8c63271e349b77d"},"articleBody":"\n\n\n\n\n\n운영체제가 뭔가요?운영체제 아는데.. 알지만, 설명을 할 수 없다면 아는것이 아니라는것!\n\n:: 운영체제란 각종 하드웨어적인 자원, 소프트웨어적인 자원을 효율적으로 사용할 수 있도록 제어해주는 관리 시스템 (Operating System) 입니다.:: 사용자에게 편리함을 제공하고 시스템의 생산성을 높여줍니다.:: 모든 하드웨어, 소프트웨어를 관리하는 “실행 관리자” 라고 정의됩니다.편리함 관리시스템 생산성증대\n\n\n\n운영체제 기능\n컴퓨터를 편하고 효율적으로 사용할 수 있도록 도움을 줍니다.CPU관리 메모리관리 IO장치\n\n\n\n운영체제 목적\n\n처리능력의 향상 : 일정시간내 처리량\n응답시간 최소화\n사용 가능도의 향상 : 얼마나빠르게\n신뢰도의 향상 : 정확성처리능력 응답시간 사용가능도 신뢰도\n\n\n\n\n운영체제 구조\n\n제어 프로그램\n\n\n감시 프로그램 (supervisor) : 시스템 전체의 동작 상태 감독, 지원.\n작업 관리 프로그램 : 자동적 작업 이행을 위한 준비와 처리\n데이터 관리 프로그램 : 데이터 전송, 입출력 데이터 연결, 파일조작 및 처리\n\n\n처리 프로그램\n\n\n언어 번역 프로그램\n서비스 프로그램\n문제 처리 프로그램제어 처리\n\n\n\n\n\n※ 이 글은 아래 블로그 글을 바탕으로 혼자 공부하며 간단히 필기해본 내용입니다.좋은 자료를 공유해주신 블로그님께 감사드립니다.🔗블로그 주소","dateCreated":"2020-10-19T11:04:45+09:00","dateModified":"2021-07-04T21:37:21+09:00","datePublished":"2020-10-19T11:04:45+09:00","description":"운영체제도 조금씩 알아보자.OS 기능 OS 목적 OS 구조","headline":"⚙️ 운영체제(1) 기능,목적,구조","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2020/10/19/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-1-%EA%B8%B0%EB%8A%A5-%EB%AA%A9%EC%A0%81-%EA%B5%AC%EC%A1%B0/"},"publisher":{"@type":"Organization","name":"Suyan Kim","sameAs":["https://github.com/ksso730","https://www.instagram.com/syankkim/"],"image":"https://www.gravatar.com/avatar/221eb22c21ff8475b8c63271e349b77d","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/221eb22c21ff8475b8c63271e349b77d"}},"url":"http://yoursite.com/2020/10/19/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-1-%EA%B8%B0%EB%8A%A5-%EB%AA%A9%EC%A0%81-%EA%B5%AC%EC%A1%B0/"}</script>
+    <meta name="description" content="운영체제도 조금씩 알아보자.OS 기능 OS 목적 OS 구조">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="⚙️ 운영체제(1) 기능,목적,구조">
+<meta property="og:url" content="http://yoursite.com/2020/10/19/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-1-%EA%B8%B0%EB%8A%A5-%EB%AA%A9%EC%A0%81-%EA%B5%AC%EC%A1%B0/index.html">
+<meta property="og:site_name" content="동글씨">
+<meta property="og:description" content="운영체제도 조금씩 알아보자.OS 기능 OS 목적 OS 구조">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-10-19T02:04:45.000Z">
+<meta property="article:modified_time" content="2021-07-04T12:37:21.251Z">
+<meta property="article:author" content="Suyan Kim">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/221eb22c21ff8475b8c63271e349b77d?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+
+    <!--STYLES END-->
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-158530470-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-158530470-1');
+    </script>
+
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/index.html"
+            aria-label=""
+        >
+            동글씨
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Open the link: /#about"
+            >
+        
+        
+            <img class="header-picture" src="https://www.gravatar.com/avatar/221eb22c21ff8475b8c63271e349b77d?s=90" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- function -->
+
+
+<!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/221eb22c21ff8475b8c63271e349b77d?s=800" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Suyan Kim</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>▲ Who Am I</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             
+                                title="home"href="/index.html"
+                                
+                                >
+                    
+                    <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">home</span>
+                        </a>
+                    <!-- add -->
+                    
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             
+                                title="archives"href="/all-archives"
+                                
+                                >
+                    
+                    <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">archives</span>
+                        </a>
+                    <!-- add -->
+                    
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             
+                                title="categories"href="/all-categories"
+                                
+                                >
+                    
+                    <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">categories</span>
+                        </a>
+                    <!-- add -->
+                    
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-AWS/">☁️ AWS (0)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-Algorithm/">☁️ Algorithm (7)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-Config/">☁️ Config (2)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-DataBase/">☁️ DataBase (1)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-Git/">☁️ Git (3)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-JPA/">☁️ JPA (10)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-Java/">☁️ Java (0)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-Linux/">☁️ Linux (6)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-Network/">☁️ Network (1)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-NodeJS/">☁️ NodeJS (1)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-OS/">☁️ OS (14)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-Python/">☁️ Python (2)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-React/">☁️ React (3)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-Spring/">☁️ Spring (1)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-TIL/">☁️ TIL (9)</a></li>
+                            
+                        
+                    
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             
+                                title="tags"href="/all-tags"
+                                
+                                >
+                    
+                    <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">tags</span>
+                        </a>
+                    <!-- add -->
+                    
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             
+                                title="about"href="#about"
+                                
+                                >
+                    
+                    <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">about</span>
+                        </a>
+                    <!-- add -->
+                    
+                </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/ksso730" target="_blank" rel="noopener" title="github">
+                    
+                    <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">github</span>
+                        </a>
+                    <!-- add -->
+                    
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://www.instagram.com/syankkim/" target="_blank" rel="noopener" title="life">
+                    
+                    <i class="sidebar-button-icon fab fa-instagram" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">life</span>
+                        </a>
+                    <!-- add -->
+                    
+                </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            ⚙️ 운영체제(1) 기능,목적,구조
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2020-10-19T11:04:45+09:00">
+	
+		    Oct 19, 2020
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/%E2%98%81%EF%B8%8F-OS/">☁️ OS</a>
+
+
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <!-- excerpt -->
+<h1 id="table-of-contents">Contents</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EA%B0%80-%EB%AD%94%EA%B0%80%EC%9A%94"><span class="toc-text">운영체제가 뭔가요?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EA%B8%B0%EB%8A%A5"><span class="toc-text">운영체제 기능</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EB%AA%A9%EC%A0%81"><span class="toc-text">운영체제 목적</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EA%B5%AC%EC%A1%B0"><span class="toc-text">운영체제 구조</span></a></li></ol>
+
+<hr>
+<br/>
+
+<h2 id="운영체제가-뭔가요"><a href="#운영체제가-뭔가요" class="headerlink" title="운영체제가 뭔가요?"></a>운영체제가 뭔가요?</h2><p><em>운영체제 아는데.. 알지만, 설명을 할 수 없다면 아는것이 아니라는것!</em></p>
+<blockquote>
+<p>:: 운영체제란 각종 하드웨어적인 자원, 소프트웨어적인 자원을 효율적으로 사용할 수 있도록 제어해주는 관리 시스템 (Operating System) 입니다.<br>:: 사용자에게 편리함을 제공하고 시스템의 생산성을 높여줍니다.<br>:: 모든 하드웨어, 소프트웨어를 관리하는 “실행 관리자” 라고 정의됩니다.<br><code>편리함</code> <code>관리시스템</code> <code>생산성증대</code></p>
+</blockquote>
+<br/>
+
+<h2 id="운영체제-기능"><a href="#운영체제-기능" class="headerlink" title="운영체제 기능"></a>운영체제 기능</h2><blockquote>
+<p>컴퓨터를 편하고 효율적으로 사용할 수 있도록 도움을 줍니다.<br><code>CPU관리</code> <code>메모리관리</code> <code>IO장치</code></p>
+</blockquote>
+<br/>
+
+<h2 id="운영체제-목적"><a href="#운영체제-목적" class="headerlink" title="운영체제 목적"></a>운영체제 목적</h2><blockquote>
+<ol>
+<li>처리능력의 향상 : 일정시간내 처리량</li>
+<li>응답시간 최소화</li>
+<li>사용 가능도의 향상 : 얼마나빠르게</li>
+<li>신뢰도의 향상 : 정확성<br><code>처리능력</code> <code>응답시간</code> <code>사용가능도</code> <code>신뢰도</code></li>
+</ol>
+</blockquote>
+<br/>
+
+<h2 id="운영체제-구조"><a href="#운영체제-구조" class="headerlink" title="운영체제 구조"></a>운영체제 구조</h2><blockquote>
+<ol>
+<li>제어 프로그램</li>
+</ol>
+<ul>
+<li>감시 프로그램 (supervisor) : 시스템 전체의 동작 상태 감독, 지원.</li>
+<li>작업 관리 프로그램 : 자동적 작업 이행을 위한 준비와 처리</li>
+<li>데이터 관리 프로그램 : 데이터 전송, 입출력 데이터 연결, 파일조작 및 처리</li>
+</ul>
+<ol start="2">
+<li>처리 프로그램</li>
+</ol>
+<ul>
+<li>언어 번역 프로그램</li>
+<li>서비스 프로그램</li>
+<li>문제 처리 프로그램<br><code>제어</code> <code>처리</code></li>
+</ul>
+</blockquote>
+<hr>
+<br/>
+
+<p><em>※ 이 글은 아래 블로그 글을 바탕으로 혼자 공부하며 간단히 필기해본 내용입니다.<br>좋은 자료를 공유해주신 블로그님께 감사드립니다.</em><br>🔗<a target="_blank" rel="noopener" href="https://jhnyang.tistory.com/16">블로그 주소</a></p>
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/10/19/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-2-%EC%BB%B4%ED%93%A8%ED%84%B0-%EA%B5%AC%EC%A1%B0/"
+                    data-tooltip="⚙️ 운영체제(2) 컴퓨터 구조"
+                    aria-label="PREVIOUS: ⚙️ 운영체제(2) 컴퓨터 구조"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/10/08/%ED%8C%8C%EC%9D%B4%EC%8D%AC-init-%EA%B3%BC-self/"
+                    data-tooltip="파이썬의 __init__ 과 self"
+                    aria-label="NEXT: 파이썬의 __init__ 과 self"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/10/19/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-1-%EA%B8%B0%EB%8A%A5-%EB%AA%A9%EC%A0%81-%EA%B5%AC%EC%A1%B0/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2020/10/19/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-1-%EA%B8%B0%EB%8A%A5-%EB%AA%A9%EC%A0%81-%EA%B5%AC%EC%A1%B0/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=http://yoursite.com/2020/10/19/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-1-%EA%B8%B0%EB%8A%A5-%EB%AA%A9%EC%A0%81-%EA%B5%AC%EC%A1%B0/"
+                    title="Share on Google+"
+                    aria-label="Share on Google+"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a
+                        class="post-action-btn btn btn--default"
+                        href="#disqus_thread"
+                        aria-label="Leave a comment"
+                    >
+                        <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="Contents">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 Suyan Kim. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/10/19/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-2-%EC%BB%B4%ED%93%A8%ED%84%B0-%EA%B5%AC%EC%A1%B0/"
+                    data-tooltip="⚙️ 운영체제(2) 컴퓨터 구조"
+                    aria-label="PREVIOUS: ⚙️ 운영체제(2) 컴퓨터 구조"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/10/08/%ED%8C%8C%EC%9D%B4%EC%8D%AC-init-%EA%B3%BC-self/"
+                    data-tooltip="파이썬의 __init__ 과 self"
+                    aria-label="NEXT: 파이썬의 __init__ 과 self"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/10/19/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-1-%EA%B8%B0%EB%8A%A5-%EB%AA%A9%EC%A0%81-%EA%B5%AC%EC%A1%B0/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2020/10/19/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-1-%EA%B8%B0%EB%8A%A5-%EB%AA%A9%EC%A0%81-%EA%B5%AC%EC%A1%B0/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=http://yoursite.com/2020/10/19/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-1-%EA%B8%B0%EB%8A%A5-%EB%AA%A9%EC%A0%81-%EA%B5%AC%EC%A1%B0/"
+                    title="Share on Google+"
+                    aria-label="Share on Google+"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a
+                        class="post-action-btn btn btn--default"
+                        href="#disqus_thread"
+                        aria-label="Leave a comment"
+                    >
+                        <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="Contents">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+    <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+        <i id="btn-close-shareoptions" class="fa fa-times"></i>
+        <ul class="share-options">
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/10/19/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-1-%EA%B8%B0%EB%8A%A5-%EB%AA%A9%EC%A0%81-%EA%B5%AC%EC%A1%B0/"
+                        aria-label="Share on Facebook"
+                    >
+                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://twitter.com/intent/tweet?text=http://yoursite.com/2020/10/19/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-1-%EA%B8%B0%EB%8A%A5-%EB%AA%A9%EC%A0%81-%EA%B5%AC%EC%A1%B0/"
+                        aria-label="Share on Twitter"
+                    >
+                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://plus.google.com/share?url=http://yoursite.com/2020/10/19/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-1-%EA%B8%B0%EB%8A%A5-%EB%AA%A9%EC%A0%81-%EA%B5%AC%EC%A1%B0/"
+                        aria-label="Share on Google+"
+                    >
+                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+
+            
+        </div>
+        
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/221eb22c21ff8475b8c63271e349b77d?s=110" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Suyan Kim</h4>
+        <!--  -->
+            <!-- <div id="about-card-bio"><p>author.bio</p>
+</div> -->
+            <div id="about-card-bio">안녕하세요, 서버 백엔드 개발자 동글씨입니다.</div>
+        <!--  -->
+        <!--  -->
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <!-- <p>Backend Developer</p>
+ -->
+                Backend Developer
+            </div>
+        <!--  -->
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                Korea
+            </div>
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/null');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/tranquilpeak.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+        <script>
+          var disqus_config = function() {
+            this.page.url = 'http://yoursite.com/2020/10/19/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-1-%EA%B8%B0%EB%8A%A5-%EB%AA%A9%EC%A0%81-%EA%B5%AC%EC%A1%B0/';
+              
+            this.page.identifier = '2020/10/19/운영체제-1-기능-목적-구조/';
+              
+          };
+          (function() {
+            var d = document, s = d.createElement('script');
+            var disqus_shortname = 'ksso730-github-io';
+            s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+    
+
+
+
+
+    </body>
+</html>

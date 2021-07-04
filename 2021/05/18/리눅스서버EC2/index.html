@@ -1,0 +1,891 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="동글씨">
+    <title>🗯 리눅스서버EC2, 리눅스 기본 - 동글씨</title>
+    <meta name="author" content="Suyan Kim">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Suyan Kim","sameAs":["https://github.com/ksso730","https://www.instagram.com/syankkim/"],"image":"https://www.gravatar.com/avatar/221eb22c21ff8475b8c63271e349b77d"},"articleBody":"\n\n\n\n💬 해당 강의는 fastcampus 에서 ‘컴공 전공자 따라잡기 온라인 완주반’ 강의를 들으며 스스로의 학습을 위해 작성한 포스팅입니다. 문제가 된다면 연락 부탁드립니다.\n리눅스 배포판(패키지)\n리눅스 커널 및 다양한 소프트웨어 패키지를 묶어서 배포하는것\n리눅스 배포판(패키지)\n\n리눅스 배포판 비교 (GNU, Ubuntuk, CentOS, RedHat)\n\n\n종류\n설명\n\n\n\nDebian GNU\n데비안은 무료 오픈소스 소프트웨어로만 구성된 운영체제이다. 패키지 업데이트나 의존성 및 보안관련 업데이트를 자동으로 수행하여 관리가 편리하다. 안정성과 보안에 중점을 두어 다른 리눅스 배포판들의 기반으로 사용되고 있다. 다만 설정이 어려워 초보자에게는 권장되지 않는다.\n\n\nUbuntu\n데비안에 기초한 운영체제로서 유니티라는 독자적인 데스크톱 환경을 제공한다. 업데이트 주기는 일년에 총 두번으로 짧다. 처음 접하는 사람들도 쉽게 설치가 가능하다. 개인용 데스크톱에서 많이 사용하지만, 현재는 모바일, 웹서버, 클라우드, 가상서버 등 다양한 형태로 지원하고 있다.\n\n\nCentOS\n유료버전인 RHEL의 복제판으로 레드햇에서 상표권을 배제하고 배포된 리눅스이다. 모든 패키지나 기능이 RHEL과 같고 무료로 사용할 수 있다.  하지만 RHEL처럼 사후 기술지원이나 서비스를 받을 수는 없다.\n\n\nRedHat\n쉬운 설치와 독자적인 패키지 관리가 가능하기 때문에 현업에서 가장 널리 사용되는 운영체제이다.  GUI와 RPM,YUM 같은 패키지 관리 도구를  제공하여 초보자들도 쉽게 설치할 수 있다. 현재는 레드햇 엔터프라이즈 리눅스(RHEL) 만 의미하며, 유료 배포판으로 업데이트를 지원하고 있다.\n\n\n클라우드 컴퓨팅 설정 방법 with AWS\nAWS 계정이 없다면, 만들어야 한다.\n\nEC2 또는 인스턴스(서버) 생성\n인스턴스 서버를 생성하면 마지막에 키페어 (.pem) 를 생성할 수 있다. 잘 저장해둔다.\n\n\n\n\n\nElastic IP(탄력적 IP)생성\n고정IP/동적IP\n탄력적 IP 를 생성하고, 인스턴스와 연결까지 해주어야 성공.\n\n \n\n\n\n자기 PC(클라이언트) 에서 EC2(서버) 접속\n인스턴스를 생성할 때 다운 받은 .pem 파일을 시작하기 원하는 위치에 둔다.\n.pem 이 있는 위치에서 ssh -i &#123;.pem 파일&#125; &#123;ubuntu@고정IP&#125; 수행.\neg. ssh -i suyeon.pem  ubuntu@3.34.112.149\n권한문제는 chmod 400 suyeon.pem\n\n\n아래와 같이 ubuntu@ip-172-31-42-223:~$ 서버 AWS 서버접속이 되는것을 볼 수 있다.\n\n12345678910111213141516171819202122232425262728293031323334353637$ chmod 400 suyeon.pem$ lltotal 4-r--r--r-- 1 SUYEON 197609 1700  5월 18 00:23 suyeon.pem$$ ssh -i suyeon.pem  ubuntu@3.34.112.149The authenticity of host &#x27;3.34.112.149 (3.34.112.149)&#x27; can&#x27;t be established.ECDSA key fingerprint is SHA256:u5P/Pib6W0sp1nNLTvMtbweg4qAibDzeqtC6T5EVWWg.Are you sure you want to continue connecting (yes/no/[fingerprint])? yesWarning: Permanently added &#x27;3.34.112.149&#x27; (ECDSA) to the list of known hosts.Welcome to Ubuntu 18.04.5 LTS (GNU/Linux 5.4.0-1045-aws x86_64) * Documentation:  https://help.ubuntu.com * Management:     https://landscape.canonical.com * Support:        https://ubuntu.com/advantage  System information as of Mon May 17 15:29:10 UTC 2021  System load:  0.0               Processes:           94  Usage of /:   3.9% of 29.02GB   Users logged in:     0  Memory usage: 19%               IP address for eth0: 172.31.42.223  Swap usage:   0%0 packages can be updated.0 of these updates are security updates.The programs included with the Ubuntu system are free software;the exact distribution terms for each program are described in theindividual files in /usr/share/doc/*/copyright.Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted byapplicable law.To run a command as administrator (user &quot;root&quot;), use &quot;sudo &lt;command&gt;&quot;.See &quot;man sudo_root&quot; for details.ubuntu@ip-172-31-42-223:~$\n\n\n리눅스 기본 구성리눅스 파일\n모든것은 파일이라는 철학을 따른다.\n모든 인터렉션은 read / write\n마우스, 키보드와 같은 모든 디바이스 관련된 기술도 파일과 같이 다루어진다.\n파일 네임스페이스\n전역 네임스페이스를 사용한다.\neg. /tomcat/ows/driver.txt\n\n\n\n리눅스 프로세스\n리눅스 실행 파일 포멧 - ELF (Executable and Linkable Format)\n콜스택, 코드 (텍스트), 데이터 및 BSS 섹션 등\n\n\n다양한 시스템 리소스와 관련되어 있다. (시스템콜 기반.)\n타이머, 시그널, 파일, 네트워크, 디바이스, IPC 기법\n\n\n가상 메모리를 지원한다.\n각 프로세스는 pid(프로세스 ID) 고유값으로 구분되어 있다.\ninit 프로세스(첫번째 프로세스) 를 기반으로 fork() 시스템콜을 사용해서 신규 프로세스가 생성되는 방식이다.\n\n리눅스 권한\n운영체제는 사용자/리소스 권한을 관리한다.\n리눅스는 사용자/그룹으로 권한을 관리한다.\nroot 는 슈퍼관리자이다.\n파일마다 소유자, 소유자  그룹, 모든 사용자에 대해 읽기/쓰기/실행 권한을 관리한다. (rwx)\n접근 권한 정보는 inode 의 자료구조에 저장된다.리눅스 권한 예시👆\n\n리눅스 파일 종류\n디렉토리\n하나의 파일로, 상위 디렉토리 파일에 등록되어 있다.\n\n\n일반파일\n스트림 파일\n\n\n특수 파일\n장치파일 (Device file)\n블록 장치(특수)파일, 캐릭터 장치(특수)파일\n파이프\n소켓\n\n\n\n\n블록 장치 파일보통 파일 read/write 요청이 있으면 커널에 전달되어 파일스트림 드라이버에 의해 처리된다. 반면에 장치파일은 요청이 그 장치의 드라이버에 의해서 처리되며, 하드디스크, CD/DVD 등의 저장 장치 파일들이다. 블록단위로 입출력을 수행한다.캐릭터 장치 파일터미널, 프린터, 키보드 등의 문자 기반 장치 파일을 의미한다. I/O 버퍼를 사용하지 않으며 바이트 단위의 입출력만 수행한다.파이프 파일특정 프로그램의 출력을 중간 파일을 거치지 않고 다른 파일의 입력으로 보내는 파일을 의미한다. FIFO 방식으로 처리된다.소켓 파일네트워크의 입출력을 담당하는 API(Application Program Interface) 로, 물리적인 두 호스트 컴퓨터 간의 데이터를 송수신 할 때 사용하는 논리적인 소프트웨어 장치파일이다.\n\n\n쉘(shell) 이란?\n사용자와 운영체제간 인터페이스이다.\n사용자의 명령을 해석해서 커널에 명령을 요청한다.\n관련된 시스템콜을 사용해서 프로그램이 작성되어 있다.\n\n쉘의 종류\nBourne-Again Shell (bash): GNU 프로젝트의 일환으로 개발되었다.\n\n다중 사용자를 지원하는 시스템\n다중 사용자 관련 명령어는 어떤것이 있을까?\n\nsudo 명령어\n/etc/sudors 설정 파일에서 설정을 변경할 수 있다.\n\n\n아래와 같이 내가 만드려는 사용자를 root 아래에 추가해준다.\n\n123# User privilege specificationroot    ALL=(ALL:ALL) ALLsuyn    ALL=(ALL:ALL) ALL\n\n\nroot 권한으로 adduser 명령어를 사용해 새로운 사용자를 생성한다.\n12345678910111213141516171819202122232425ubuntu@ip-172-31-42-223:~$ adduser suynadduser: Only root may add a user or group to the system.ubuntu@ip-172-31-42-223:~$ sudo adduser suynAdding user `suyn&#x27; ...Adding new group `suyn&#x27; (1001) ...Adding new user `suyn&#x27; (1001) with group `suyn&#x27; ...Creating home directory `/home/suyn&#x27; ...Copying files from `/etc/skel&#x27; ...Enter new UNIX password:Retype new UNIX password:passwd: password updated successfullyChanging the user information for suynEnter the new value, or press ENTER for the default        Full Name []:        Room Number []:        Work Phone []:        Home Phone []:        Other []:Is the information correct? [Y/n] yubuntu@ip-172-31-42-223:~$ sudo passwd suynEnter new UNIX password:Retype new UNIX password:passwd: password updated successfully\n생성한 suyn 유저로 전환\n1234ubuntu@ip-172-31-42-223:~$ su - suynPassword:suyn@ip-172-31-42-223:~$\n\nls 명령어\nal 옵션을 주면 숨김파일 까지 조회할 수 있다.\n파일 권한\n파일마다 소유자, 소유자그룹, 모든 사용자에대해 권한을 설정할 수 있다.\ndrwxr-xr-x\nd : directory 를 나타냄. 리눅스 파일종류👆\nrwx 소유자는 rwx 가능\nr-x 그룹은 rx 가능\nr-x 모든 사용자는 rx 가능\n\n\n소유자 접근 권한 정보는 inode 에 저장되어 있다.\n\n123456789101112ubuntu@ip-172-31-42-223:~$ ls -altotal 36drwxr-xr-x 5 ubuntu ubuntu 4096 May 18 15:40 .drwxr-xr-x 4 root   root   4096 May 18 15:20 ..-rw-r--r-- 1 ubuntu ubuntu  220 Apr  4  2018 .bash_logout-rw-r--r-- 1 ubuntu ubuntu 3771 Apr  4  2018 .bashrcdrwx------ 2 ubuntu ubuntu 4096 May 17 15:29 .cachedrwx------ 3 ubuntu ubuntu 4096 May 17 15:29 .gnupg-rw-r--r-- 1 ubuntu ubuntu  807 Apr  4  2018 .profiledrwx------ 2 ubuntu ubuntu 4096 May 17 15:24 .ssh-rw-r--r-- 1 ubuntu ubuntu    0 May 18 15:19 .sudo_as_admin_successful-rw------- 1 ubuntu ubuntu 2106 May 18 15:40 .viminfo\n\n\n[다시한번 짚고가기] 슈퍼블록 &amp; inode\n\n슈퍼블록은 파일 시스템의 정보를 담고있다.\nSUPER_BLOCK [ [fileA] [fileB] ] 이런식이다.\n\n\ninode 는 파일이름마다 inode 고유값이 매칭되며 자료구조 형식으로 관리된다. 또한, inode를 기반의 메타정보(파일권한, 소유자정보, 파일사이즈, 생성시간 등)를 담고있다. 파일 시스템에서는 inode 기반으로 파일에 엑세스한다.\nSUPER_BLOCK [ [fileA:inode] [fileB:inode] ] 이런식이다.\n\n\n\n\nln 명령어\n하드링크 : 기존파일의 inode 는 동일하다.\ncp 명령어는 물리적인 공간이 늘어나는 반면에, 하드링크는 동일한 inode 를 사용하되 포인터만 늘어난다고 생각하면 된다. (전체 파일 용량은 달라지지 않는다.)\n심볼릭 링크 (소프트링크)\ninode 가 바뀐다. 기존 파일의 위치가 바뀌거나 파일이 삭제되면 소프트링크에 접근할 수 없게된다.\n\n\n하드링크 예시\n\n아래 코드에서 inode 값을 확인! a.txt 와 a_link 의 inode 값은 동일하다.256239 -rw-rw-r– 2 ubuntu ubuntu 6 May 20 08:39 a.txt256239 -rw-rw-r– 2 ubuntu ubuntu 6 May 20 08:39 a_link.txt123456ubuntu@ip-172-31-33-123:~$ cat a.txtasdfgubuntu@ip-172-31-33-123:~$ ln a.txt a_link.txtubuntu@ip-172-31-33-123:~$ ls -ali *.txt256239 -rw-rw-r-- 2 ubuntu ubuntu 6 May 20 08:39 a.txt256239 -rw-rw-r-- 2 ubuntu ubuntu 6 May 20 08:39 a_link.txt\n\n\n소프트링크 예시\n\n아래 코드에서 inode 값을 확인! a.txt 와 a_link.txt 의 inode 값은 다르다.256241 -rw-rw-r– 1 ubuntu ubuntu 9 May 20 08:54 b.txt256238 lrwxrwxrwx 1 ubuntu ubuntu 5 May 20 08:55 b_link.txt -&gt; b.txt12345678ubuntu@ip-172-31-33-123:~$ cat b.txtsoftlinkubuntu@ip-172-31-33-123:~$ ln -s b.txt b_link.txtubuntu@ip-172-31-33-123:~$ ls -ali b*256241 -rw-rw-r-- 1 ubuntu ubuntu 9 May 20 08:54 b.txt256238 lrwxrwxrwx 1 ubuntu ubuntu 5 May 20 08:55 b_link.txt -&gt; b.txtubuntu@ip-172-31-33-123:~$ cat b_link.txtsoftlink\n\n\n","dateCreated":"2021-05-18T00:01:58+09:00","dateModified":"2021-07-04T21:37:21+09:00","datePublished":"2021-05-18T00:01:58+09:00","description":"클라우드 컴퓨팅 환경에서 서버를 실행해보자. with AWS리눅스 파일종류와 쉘(shell), 소프트링크/하드링크#EC2 #shell #Linux #hardlink #softlink","headline":"🗯 리눅스서버EC2, 리눅스 기본","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2021/05/18/%EB%A6%AC%EB%88%85%EC%8A%A4%EC%84%9C%EB%B2%84EC2/"},"publisher":{"@type":"Organization","name":"Suyan Kim","sameAs":["https://github.com/ksso730","https://www.instagram.com/syankkim/"],"image":"https://www.gravatar.com/avatar/221eb22c21ff8475b8c63271e349b77d","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/221eb22c21ff8475b8c63271e349b77d"}},"url":"http://yoursite.com/2021/05/18/%EB%A6%AC%EB%88%85%EC%8A%A4%EC%84%9C%EB%B2%84EC2/","keywords":"linux"}</script>
+    <meta name="description" content="클라우드 컴퓨팅 환경에서 서버를 실행해보자. with AWS리눅스 파일종류와 쉘(shell), 소프트링크&#x2F;하드링크#EC2 #shell #Linux #hardlink #softlink">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="🗯 리눅스서버EC2, 리눅스 기본">
+<meta property="og:url" content="http://yoursite.com/2021/05/18/%EB%A6%AC%EB%88%85%EC%8A%A4%EC%84%9C%EB%B2%84EC2/index.html">
+<meta property="og:site_name" content="동글씨">
+<meta property="og:description" content="클라우드 컴퓨팅 환경에서 서버를 실행해보자. with AWS리눅스 파일종류와 쉘(shell), 소프트링크&#x2F;하드링크#EC2 #shell #Linux #hardlink #softlink">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://user-images.githubusercontent.com/28856435/118682817-bdb0e480-b83b-11eb-9915-0dc33531741b.PNG">
+<meta property="og:image" content="https://user-images.githubusercontent.com/28856435/118682878-cdc8c400-b83b-11eb-8339-8d4e4d683dba.PNG">
+<meta property="article:published_time" content="2021-05-17T15:01:58.000Z">
+<meta property="article:modified_time" content="2021-07-04T12:37:21.245Z">
+<meta property="article:author" content="Suyan Kim">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/28856435/118682817-bdb0e480-b83b-11eb-9915-0dc33531741b.PNG">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/221eb22c21ff8475b8c63271e349b77d?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+
+    <!--STYLES END-->
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-158530470-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-158530470-1');
+    </script>
+
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/index.html"
+            aria-label=""
+        >
+            동글씨
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Open the link: /#about"
+            >
+        
+        
+            <img class="header-picture" src="https://www.gravatar.com/avatar/221eb22c21ff8475b8c63271e349b77d?s=90" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- function -->
+
+
+<!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/221eb22c21ff8475b8c63271e349b77d?s=800" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Suyan Kim</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>▲ Who Am I</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             
+                                title="home"href="/index.html"
+                                
+                                >
+                    
+                    <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">home</span>
+                        </a>
+                    <!-- add -->
+                    
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             
+                                title="archives"href="/all-archives"
+                                
+                                >
+                    
+                    <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">archives</span>
+                        </a>
+                    <!-- add -->
+                    
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             
+                                title="categories"href="/all-categories"
+                                
+                                >
+                    
+                    <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">categories</span>
+                        </a>
+                    <!-- add -->
+                    
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-AWS/">☁️ AWS (0)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-Algorithm/">☁️ Algorithm (7)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-Config/">☁️ Config (2)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-DataBase/">☁️ DataBase (1)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-Git/">☁️ Git (3)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-JPA/">☁️ JPA (10)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-Java/">☁️ Java (0)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-Linux/">☁️ Linux (6)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-Network/">☁️ Network (1)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-NodeJS/">☁️ NodeJS (1)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-OS/">☁️ OS (14)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-Python/">☁️ Python (2)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-React/">☁️ React (3)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-Spring/">☁️ Spring (1)</a></li>
+                            
+                        
+                            
+                                <li class="side-tag-li"><a class="side-tag" href="/categories/%E2%98%81%EF%B8%8F-TIL/">☁️ TIL (9)</a></li>
+                            
+                        
+                    
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             
+                                title="tags"href="/all-tags"
+                                
+                                >
+                    
+                    <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">tags</span>
+                        </a>
+                    <!-- add -->
+                    
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             
+                                title="about"href="#about"
+                                
+                                >
+                    
+                    <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">about</span>
+                        </a>
+                    <!-- add -->
+                    
+                </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/ksso730" target="_blank" rel="noopener" title="github">
+                    
+                    <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">github</span>
+                        </a>
+                    <!-- add -->
+                    
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://www.instagram.com/syankkim/" target="_blank" rel="noopener" title="life">
+                    
+                    <i class="sidebar-button-icon fab fa-instagram" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">life</span>
+                        </a>
+                    <!-- add -->
+                    
+                </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            🗯 리눅스서버EC2, 리눅스 기본
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2021-05-18T00:01:58+09:00">
+	
+		    May 18, 2021
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/%E2%98%81%EF%B8%8F-Linux/">☁️ Linux</a>
+
+
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <!-- excerpt -->
+<h1 id="table-of-contents">Contents</h1><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%EB%A6%AC%EB%88%85%EC%8A%A4-%EB%B0%B0%ED%8F%AC%ED%8C%90-%ED%8C%A8%ED%82%A4%EC%A7%80"><span class="toc-text">리눅스 배포판(패키지)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%A6%AC%EB%88%85%EC%8A%A4-%EB%B0%B0%ED%8F%AC%ED%8C%90-%EB%B9%84%EA%B5%90-GNU-Ubuntuk-CentOS-RedHat"><span class="toc-text">리눅스 배포판 비교 (GNU, Ubuntuk, CentOS, RedHat)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%EC%BB%B4%ED%93%A8%ED%8C%85-%EC%84%A4%EC%A0%95-%EB%B0%A9%EB%B2%95-with-AWS"><span class="toc-text">클라우드 컴퓨팅 설정 방법 with AWS</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#EC2-%EB%98%90%EB%8A%94-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4-%EC%84%9C%EB%B2%84-%EC%83%9D%EC%84%B1"><span class="toc-text">EC2 또는 인스턴스(서버) 생성</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Elastic-IP-%ED%83%84%EB%A0%A5%EC%A0%81-IP-%EC%83%9D%EC%84%B1"><span class="toc-text">Elastic IP(탄력적 IP)생성</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%9E%90%EA%B8%B0-PC-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%97%90%EC%84%9C-EC2-%EC%84%9C%EB%B2%84-%EC%A0%91%EC%86%8D"><span class="toc-text">자기 PC(클라이언트) 에서 EC2(서버) 접속</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%EB%A6%AC%EB%88%85%EC%8A%A4-%EA%B8%B0%EB%B3%B8-%EA%B5%AC%EC%84%B1"><span class="toc-text">리눅스 기본 구성</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%A6%AC%EB%88%85%EC%8A%A4-%ED%8C%8C%EC%9D%BC"><span class="toc-text">리눅스 파일</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%A6%AC%EB%88%85%EC%8A%A4-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4"><span class="toc-text">리눅스 프로세스</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%A6%AC%EB%88%85%EC%8A%A4-%EA%B6%8C%ED%95%9C"><span class="toc-text">리눅스 권한</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%A6%AC%EB%88%85%EC%8A%A4-%ED%8C%8C%EC%9D%BC-%EC%A2%85%EB%A5%98"><span class="toc-text">리눅스 파일 종류</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%EC%89%98-shell-%EC%9D%B4%EB%9E%80"><span class="toc-text">쉘(shell) 이란?</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%89%98%EC%9D%98-%EC%A2%85%EB%A5%98"><span class="toc-text">쉘의 종류</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%8B%A4%EC%A4%91-%EC%82%AC%EC%9A%A9%EC%9E%90%EB%A5%BC-%EC%A7%80%EC%9B%90%ED%95%98%EB%8A%94-%EC%8B%9C%EC%8A%A4%ED%85%9C"><span class="toc-text">다중 사용자를 지원하는 시스템</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sudo-%EB%AA%85%EB%A0%B9%EC%96%B4"><span class="toc-text">sudo 명령어</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ls-%EB%AA%85%EB%A0%B9%EC%96%B4"><span class="toc-text">ls 명령어</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ln-%EB%AA%85%EB%A0%B9%EC%96%B4"><span class="toc-text">ln 명령어</span></a></li></ol></li></ol></li></ol>
+
+<hr>
+<p><em>💬 해당 강의는 fastcampus 에서 ‘컴공 전공자 따라잡기 온라인 완주반’ 강의를 들으며 스스로의 학습을 위해 작성한 포스팅입니다. 문제가 된다면 연락 부탁드립니다.</em></p>
+<h1 id="리눅스-배포판-패키지"><a href="#리눅스-배포판-패키지" class="headerlink" title="리눅스 배포판(패키지)"></a>리눅스 배포판(패키지)</h1><ul>
+<li>리눅스 커널 및 다양한 소프트웨어 패키지를 묶어서 배포하는것</li>
+<li>리눅스 배포판(패키지)</li>
+</ul>
+<h2 id="리눅스-배포판-비교-GNU-Ubuntuk-CentOS-RedHat"><a href="#리눅스-배포판-비교-GNU-Ubuntuk-CentOS-RedHat" class="headerlink" title="리눅스 배포판 비교 (GNU, Ubuntuk, CentOS, RedHat)"></a>리눅스 배포판 비교 (GNU, Ubuntuk, CentOS, RedHat)</h2><table>
+<thead>
+<tr>
+<th>종류</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Debian GNU</td>
+<td>데비안은 <code>무료 오픈소스 소프트웨어</code>로만 구성된 운영체제이다. 패키지 업데이트나 의존성 및 보안관련 업데이트를 자동으로 수행하여 <code>관리가 편리</code>하다. 안정성과 보안에 중점을 두어 다른 리눅스 배포판들의 기반으로 사용되고 있다. 다만 <code>설정이 어려워</code> 초보자에게는 권장되지 않는다.</td>
+</tr>
+<tr>
+<td>Ubuntu</td>
+<td>데비안에 기초한 운영체제로서 <code>유니티라는 독자적인 데스크톱 환경</code>을 제공한다. 업데이트 주기는 일년에 총 두번으로 짧다. 처음 접하는 사람들도 <code>쉽게 설치</code>가 가능하다. 개인용 데스크톱에서 많이 사용하지만, 현재는 모바일, 웹서버, 클라우드, 가상서버 등 다양한 형태로 지원하고 있다.</td>
+</tr>
+<tr>
+<td>CentOS</td>
+<td>유료버전인 <code>RHEL의 복제판</code>으로 레드햇에서 상표권을 배제하고 배포된 리눅스이다. 모든 패키지나 기능이 RHEL과 같고 <code>무료</code>로 사용할 수 있다.  하지만 RHEL처럼 사후 기술지원이나 서비스를 받을 수는 없다.</td>
+</tr>
+<tr>
+<td>RedHat</td>
+<td><code>쉬운 설치</code>와 <code>독자적인 패키지 관리</code>가 가능하기 때문에 현업에서 가장 널리 사용되는 운영체제이다.  GUI와 RPM,YUM 같은 패키지 관리 도구를  제공하여 <code>초보자들도 쉽게 설치</code>할 수 있다. 현재는 레드햇 엔터프라이즈 리눅스(RHEL) 만 의미하며, 유료 배포판으로 업데이트를 지원하고 있다.</td>
+</tr>
+</tbody></table>
+<h1 id="클라우드-컴퓨팅-설정-방법-with-AWS"><a href="#클라우드-컴퓨팅-설정-방법-with-AWS" class="headerlink" title="클라우드 컴퓨팅 설정 방법 with AWS"></a>클라우드 컴퓨팅 설정 방법 with AWS</h1><ul>
+<li>AWS 계정이 없다면, 만들어야 한다.</li>
+</ul>
+<h2 id="EC2-또는-인스턴스-서버-생성"><a href="#EC2-또는-인스턴스-서버-생성" class="headerlink" title="EC2 또는 인스턴스(서버) 생성"></a>EC2 또는 인스턴스(서버) 생성</h2><ul>
+<li>인스턴스 서버를 생성하면 마지막에 <code>키페어</code> (.pem) 를 생성할 수 있다. 잘 저장해둔다.</li>
+</ul>
+<img width="1242" alt="aws_01" src="https://user-images.githubusercontent.com/28856435/118682817-bdb0e480-b83b-11eb-9915-0dc33531741b.PNG">
+
+<br>
+
+<h2 id="Elastic-IP-탄력적-IP-생성"><a href="#Elastic-IP-탄력적-IP-생성" class="headerlink" title="Elastic IP(탄력적 IP)생성"></a>Elastic IP(탄력적 IP)생성</h2><ul>
+<li>고정IP/동적IP</li>
+<li>탄력적 IP 를 생성하고, 인스턴스와 연결까지 해주어야 성공.</li>
+</ul>
+ <img width="836" alt="aws_02" src="https://user-images.githubusercontent.com/28856435/118682878-cdc8c400-b83b-11eb-8339-8d4e4d683dba.PNG">
+
+<br>
+
+<h2 id="자기-PC-클라이언트-에서-EC2-서버-접속"><a href="#자기-PC-클라이언트-에서-EC2-서버-접속" class="headerlink" title="자기 PC(클라이언트) 에서 EC2(서버) 접속"></a>자기 PC(클라이언트) 에서 EC2(서버) 접속</h2><ul>
+<li>인스턴스를 생성할 때 다운 받은 <code>.pem</code> 파일을 시작하기 원하는 위치에 둔다.</li>
+<li><code>.pem</code> 이 있는 위치에서 <code>ssh -i &#123;.pem 파일&#125; &#123;ubuntu@고정IP&#125;</code> 수행.</li>
+<li>eg. <code>ssh -i suyeon.pem  ubuntu@3.34.112.149</code></li>
+<li>권한문제는 <code>chmod 400 suyeon.pem</code></li>
+</ul>
+<ul>
+<li>아래와 같이 <code>ubuntu@ip-172-31-42-223:~$</code> 서버 AWS 서버접속이 되는것을 볼 수 있다.</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> chmod 400 suyeon.pem</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ll</span></span><br><span class="line">total 4</span><br><span class="line">-r--r--r-- 1 SUYEON 197609 1700  5월 18 00:23 suyeon.pem</span><br><span class="line"><span class="meta">$</span><span class="bash"></span></span><br><span class="line"><span class="bash">$ ssh -i suyeon.pem  ubuntu@3.34.112.149</span></span><br><span class="line">The authenticity of host &#x27;3.34.112.149 (3.34.112.149)&#x27; can&#x27;t be established.</span><br><span class="line">ECDSA key fingerprint is SHA256:u5P/Pib6W0sp1nNLTvMtbweg4qAibDzeqtC6T5EVWWg.</span><br><span class="line">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span><br><span class="line">Warning: Permanently added &#x27;3.34.112.149&#x27; (ECDSA) to the list of known hosts.</span><br><span class="line">Welcome to Ubuntu 18.04.5 LTS (GNU/Linux 5.4.0-1045-aws x86_64)</span><br><span class="line"></span><br><span class="line"> * Documentation:  https://help.ubuntu.com</span><br><span class="line"> * Management:     https://landscape.canonical.com</span><br><span class="line"> * Support:        https://ubuntu.com/advantage</span><br><span class="line"></span><br><span class="line">  System information as of Mon May 17 15:29:10 UTC 2021</span><br><span class="line"></span><br><span class="line">  System load:  0.0               Processes:           94</span><br><span class="line">  Usage of /:   3.9% of 29.02GB   Users logged in:     0</span><br><span class="line">  Memory usage: 19%               IP address for eth0: 172.31.42.223</span><br><span class="line">  Swap usage:   0%</span><br><span class="line"></span><br><span class="line">0 packages can be updated.</span><br><span class="line">0 of these updates are security updates.</span><br><span class="line"></span><br><span class="line">The programs included with the Ubuntu system are free software;</span><br><span class="line">the exact distribution terms for each program are described in the</span><br><span class="line">individual files in /usr/share/doc/*/copyright.</span><br><span class="line"></span><br><span class="line">Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by</span><br><span class="line">applicable law.</span><br><span class="line"></span><br><span class="line">To run a command as administrator (user &quot;root&quot;), use &quot;sudo &lt;command&gt;&quot;.</span><br><span class="line">See &quot;man sudo_root&quot; for details.</span><br><span class="line"></span><br><span class="line">ubuntu@ip-172-31-42-223:~$</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="리눅스-기본-구성"><a href="#리눅스-기본-구성" class="headerlink" title="리눅스 기본 구성"></a>리눅스 기본 구성</h1><h2 id="리눅스-파일"><a href="#리눅스-파일" class="headerlink" title="리눅스 파일"></a>리눅스 파일</h2><ul>
+<li>모든것은 파일이라는 철학을 따른다.</li>
+<li>모든 인터렉션은 read / write</li>
+<li>마우스, 키보드와 같은 모든 디바이스 관련된 기술도 파일과 같이 다루어진다.</li>
+<li>파일 네임스페이스</li>
+<li>전역 네임스페이스를 사용한다.<ul>
+<li>eg. /tomcat/ows/driver.txt</li>
+</ul>
+</li>
+</ul>
+<h2 id="리눅스-프로세스"><a href="#리눅스-프로세스" class="headerlink" title="리눅스 프로세스"></a>리눅스 프로세스</h2><ul>
+<li>리눅스 실행 파일 포멧 - <code>ELF</code> (Executable and Linkable Format)<ul>
+<li>콜스택, 코드 (텍스트), 데이터 및 BSS 섹션 등</li>
+</ul>
+</li>
+<li>다양한 시스템 리소스와 관련되어 있다. (시스템콜 기반.)<ul>
+<li>타이머, 시그널, 파일, 네트워크, 디바이스, IPC 기법</li>
+</ul>
+</li>
+<li><code>가상 메모리</code>를 지원한다.</li>
+<li>각 프로세스는 <code>pid</code>(프로세스 ID) 고유값으로 구분되어 있다.</li>
+<li><code>init 프로세스</code>(첫번째 프로세스) 를 기반으로 <code>fork()</code> 시스템콜을 사용해서 신규 프로세스가 생성되는 방식이다.</li>
+</ul>
+<h2 id="리눅스-권한"><a href="#리눅스-권한" class="headerlink" title="리눅스 권한"></a>리눅스 권한</h2><ul>
+<li>운영체제는 사용자/리소스 권한을 관리한다.</li>
+<li>리눅스는 사용자/그룹으로 권한을 관리한다.</li>
+<li>root 는 슈퍼관리자이다.</li>
+<li>파일마다 소유자, 소유자  그룹, 모든 사용자에 대해 읽기/쓰기/실행 권한을 관리한다. (rwx)</li>
+<li>접근 권한 정보는 inode 의 자료구조에 저장된다.<br><a href="#ls-%EB%AA%85%EB%A0%B9%EC%96%B4">리눅스 권한 예시👆</a></li>
+</ul>
+<h2 id="리눅스-파일-종류"><a href="#리눅스-파일-종류" class="headerlink" title="리눅스 파일 종류"></a>리눅스 파일 종류</h2><ol>
+<li>디렉토리<ul>
+<li>하나의 파일로, 상위 디렉토리 파일에 등록되어 있다.</li>
+</ul>
+</li>
+<li>일반파일<ul>
+<li>스트림 파일</li>
+</ul>
+</li>
+<li>특수 파일<ul>
+<li>장치파일 (Device file)</li>
+<li>블록 장치(특수)파일, 캐릭터 장치(특수)파일</li>
+<li>파이프</li>
+<li>소켓</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p><strong>블록 장치 파일</strong><br>보통 파일 read/write 요청이 있으면 커널에 전달되어 파일스트림 드라이버에 의해 처리된다. 반면에 장치파일은 요청이 그 장치의 드라이버에 의해서 처리되며, 하드디스크, CD/DVD 등의 저장 장치 파일들이다. <code>블록단위</code>로 입출력을 수행한다.<br><strong>캐릭터 장치 파일</strong><br>터미널, 프린터, 키보드 등의 문자 기반 장치 파일을 의미한다. I/O 버퍼를 사용하지 않으며 <code>바이트 단위</code>의 입출력만 수행한다.<br><strong>파이프 파일</strong><br>특정 프로그램의 출력을 중간 파일을 거치지 않고 다른 파일의 입력으로 보내는 파일을 의미한다. <code>FIFO</code> 방식으로 처리된다.<br><strong>소켓 파일</strong><br>네트워크의 입출력을 담당하는 API(Application Program Interface) 로, 물리적인 두 호스트 컴퓨터 간의 데이터를 송수신 할 때 사용하는 논리적인 소프트웨어 장치파일이다.</p>
+</blockquote>
+<hr>
+<h1 id="쉘-shell-이란"><a href="#쉘-shell-이란" class="headerlink" title="쉘(shell) 이란?"></a>쉘(shell) 이란?</h1><ul>
+<li>사용자와 운영체제간 인터페이스이다.</li>
+<li>사용자의 명령을 해석해서 커널에 명령을 요청한다.</li>
+<li>관련된 시스템콜을 사용해서 프로그램이 작성되어 있다.</li>
+</ul>
+<h2 id="쉘의-종류"><a href="#쉘의-종류" class="headerlink" title="쉘의 종류"></a>쉘의 종류</h2><ul>
+<li>Bourne-Again Shell (bash): GNU 프로젝트의 일환으로 개발되었다.</li>
+</ul>
+<h2 id="다중-사용자를-지원하는-시스템"><a href="#다중-사용자를-지원하는-시스템" class="headerlink" title="다중 사용자를 지원하는 시스템"></a>다중 사용자를 지원하는 시스템</h2><ul>
+<li>다중 사용자 관련 명령어는 어떤것이 있을까?</li>
+</ul>
+<h3 id="sudo-명령어"><a href="#sudo-명령어" class="headerlink" title="sudo 명령어"></a>sudo 명령어</h3><ul>
+<li>/etc/sudors 설정 파일에서 설정을 변경할 수 있다.</li>
+</ul>
+<ul>
+<li>아래와 같이 내가 만드려는 사용자를 <code>root</code> 아래에 추가해준다.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># User privilege specification</span></span><br><span class="line">root    ALL=(ALL:ALL) ALL</span><br><span class="line">suyn    ALL=(ALL:ALL) ALL</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>root</code> 권한으로 <code>adduser</code> 명령어를 사용해 새로운 사용자를 생성한다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">ubuntu@ip-172-31-42-223:~$ adduser suyn</span><br><span class="line">adduser: Only root may add a user or group to the system.</span><br><span class="line"></span><br><span class="line">ubuntu@ip-172-31-42-223:~$ sudo adduser suyn</span><br><span class="line">Adding user `suyn&#x27; ...</span><br><span class="line">Adding new group `suyn&#x27; (1001) ...</span><br><span class="line">Adding new user `suyn&#x27; (1001) with group `suyn&#x27; ...</span><br><span class="line">Creating home directory `/home/suyn&#x27; ...</span><br><span class="line">Copying files from `/etc/skel&#x27; ...</span><br><span class="line">Enter new UNIX password:</span><br><span class="line">Retype new UNIX password:</span><br><span class="line">passwd: password updated successfully</span><br><span class="line">Changing the user information for suyn</span><br><span class="line">Enter the new value, or press ENTER for the default</span><br><span class="line">        Full Name []:</span><br><span class="line">        Room Number []:</span><br><span class="line">        Work Phone []:</span><br><span class="line">        Home Phone []:</span><br><span class="line">        Other []:</span><br><span class="line">Is the information correct? [Y/n] y</span><br><span class="line">ubuntu@ip-172-31-42-223:~$ sudo passwd suyn</span><br><span class="line">Enter new UNIX password:</span><br><span class="line">Retype new UNIX password:</span><br><span class="line">passwd: password updated successfully</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>생성한 <code>suyn</code> 유저로 전환</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ubuntu@ip-172-31-42-223:~$ su - suyn</span><br><span class="line">Password:</span><br><span class="line">suyn@ip-172-31-42-223:~$</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="ls-명령어"><a href="#ls-명령어" class="headerlink" title="ls 명령어"></a>ls 명령어</h3><ul>
+<li><code>al</code> 옵션을 주면 숨김파일 까지 조회할 수 있다.</li>
+<li>파일 권한</li>
+<li>파일마다 소유자, 소유자그룹, 모든 사용자에대해 권한을 설정할 수 있다.</li>
+<li><code>drwxr-xr-x</code><ul>
+<li>d : directory 를 나타냄. <a href="#%EB%A6%AC%EB%88%85%EC%8A%A4-%ED%8C%8C%EC%9D%BC-%EC%A2%85%EB%A5%98">리눅스 파일종류👆</a></li>
+<li>rwx 소유자는 rwx 가능</li>
+<li>r-x 그룹은 rx 가능</li>
+<li>r-x 모든 사용자는 rx 가능</li>
+</ul>
+</li>
+<li>소유자 접근 권한 정보는 <code>inode</code> 에 저장되어 있다.</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ubuntu@ip-172-31-42-223:~$ ls -al</span><br><span class="line">total 36</span><br><span class="line">drwxr-xr-x 5 ubuntu ubuntu 4096 May 18 15:40 .</span><br><span class="line">drwxr-xr-x 4 root   root   4096 May 18 15:20 ..</span><br><span class="line">-rw-r--r-- 1 ubuntu ubuntu  220 Apr  4  2018 .bash_logout</span><br><span class="line">-rw-r--r-- 1 ubuntu ubuntu 3771 Apr  4  2018 .bashrc</span><br><span class="line">drwx------ 2 ubuntu ubuntu 4096 May 17 15:29 .cache</span><br><span class="line">drwx------ 3 ubuntu ubuntu 4096 May 17 15:29 .gnupg</span><br><span class="line">-rw-r--r-- 1 ubuntu ubuntu  807 Apr  4  2018 .profile</span><br><span class="line">drwx------ 2 ubuntu ubuntu 4096 May 17 15:24 .ssh</span><br><span class="line">-rw-r--r-- 1 ubuntu ubuntu    0 May 18 15:19 .sudo_as_admin_successful</span><br><span class="line">-rw------- 1 ubuntu ubuntu 2106 May 18 15:40 .viminfo</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>[다시한번 짚고가기] <strong>슈퍼블록 &amp; inode</strong></p>
+<ul>
+<li><code>슈퍼블록</code>은 파일 시스템의 정보를 담고있다.<ul>
+<li>SUPER_BLOCK [ [fileA] [fileB] ] 이런식이다.</li>
+</ul>
+</li>
+<li>inode 는 파일이름마다 <code>inode 고유값</code>이 매칭되며 <code>자료구조</code> 형식으로 관리된다. 또한, inode를 기반의 메타정보(파일권한, 소유자정보, 파일사이즈, 생성시간 등)를 담고있다. 파일 시스템에서는 inode 기반으로 파일에 엑세스한다.<ul>
+<li>SUPER_BLOCK [ [fileA:inode] [fileB:inode] ] 이런식이다.</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="ln-명령어"><a href="#ln-명령어" class="headerlink" title="ln 명령어"></a>ln 명령어</h3><ul>
+<li>하드링크 : 기존파일의 inode 는 동일하다.</li>
+<li><code>cp</code> 명령어는 물리적인 공간이 늘어나는 반면에, 하드링크는 동일한 inode 를 사용하되 포인터만 늘어난다고 생각하면 된다. (전체 파일 용량은 달라지지 않는다.)</li>
+<li>심볼릭 링크 (소프트링크)</li>
+<li>inode 가 바뀐다. 기존 파일의 위치가 바뀌거나 파일이 삭제되면 소프트링크에 접근할 수 없게된다.</li>
+</ul>
+<ul>
+<li><p>하드링크 예시</p>
+<ul>
+<li>아래 코드에서 inode 값을 확인! a.txt 와 a_link 의 inode 값은 동일하다.<br><code>256239</code> -rw-rw-r– 2 ubuntu ubuntu 6 May 20 08:39 a.txt<br><code>256239</code> -rw-rw-r– 2 ubuntu ubuntu 6 May 20 08:39 a_link.txt<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ubuntu@ip-172-31-33-123:~$ cat a.txt</span><br><span class="line">asdfg</span><br><span class="line">ubuntu@ip-172-31-33-123:~$ ln a.txt a_link.txt</span><br><span class="line">ubuntu@ip-172-31-33-123:~$ ls -ali *.txt</span><br><span class="line">256239 -rw-rw-r-- 2 ubuntu ubuntu 6 May 20 08:39 a.txt</span><br><span class="line">256239 -rw-rw-r-- 2 ubuntu ubuntu 6 May 20 08:39 a_link.txt</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>소프트링크 예시</p>
+<ul>
+<li>아래 코드에서 inode 값을 확인! a.txt 와 a_link.txt 의 inode 값은 다르다.<br><code>256241</code> -rw-rw-r– 1 ubuntu ubuntu 9 May 20 08:54 b.txt<br><code>256238</code> lrwxrwxrwx 1 ubuntu ubuntu 5 May 20 08:55 b_link.txt -&gt; b.txt<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ubuntu@ip-172-31-33-123:~$ cat b.txt</span><br><span class="line">softlink</span><br><span class="line">ubuntu@ip-172-31-33-123:~$ ln -s b.txt b_link.txt</span><br><span class="line">ubuntu@ip-172-31-33-123:~$ ls -ali b*</span><br><span class="line">256241 -rw-rw-r-- 1 ubuntu ubuntu 9 May 20 08:54 b.txt</span><br><span class="line">256238 lrwxrwxrwx 1 ubuntu ubuntu 5 May 20 08:55 b_link.txt -&gt; b.txt</span><br><span class="line">ubuntu@ip-172-31-33-123:~$ cat b_link.txt</span><br><span class="line">softlink</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/linux/" rel="tag">linux</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/05/19/%EB%A6%AC%EB%88%85%EC%8A%A4-%EB%A6%AC%EB%8B%A4%EB%A0%89%EC%85%98-%ED%8C%8C%EC%9D%B4%ED%94%84/"
+                    data-tooltip="🗯 리눅스 리다이렉션/파이프, 프로세스 관련 명령어"
+                    aria-label="PREVIOUS: 🗯 리눅스 리다이렉션/파이프, 프로세스 관련 명령어"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/05/15/%EB%B6%80%ED%8C%85%EC%9D%98-%EC%9D%B4%ED%95%B4/"
+                    data-tooltip="💻 부팅의 이해"
+                    aria-label="NEXT: 💻 부팅의 이해"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2021/05/18/%EB%A6%AC%EB%88%85%EC%8A%A4%EC%84%9C%EB%B2%84EC2/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2021/05/18/%EB%A6%AC%EB%88%85%EC%8A%A4%EC%84%9C%EB%B2%84EC2/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=http://yoursite.com/2021/05/18/%EB%A6%AC%EB%88%85%EC%8A%A4%EC%84%9C%EB%B2%84EC2/"
+                    title="Share on Google+"
+                    aria-label="Share on Google+"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a
+                        class="post-action-btn btn btn--default"
+                        href="#disqus_thread"
+                        aria-label="Leave a comment"
+                    >
+                        <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="Contents">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 Suyan Kim. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/05/19/%EB%A6%AC%EB%88%85%EC%8A%A4-%EB%A6%AC%EB%8B%A4%EB%A0%89%EC%85%98-%ED%8C%8C%EC%9D%B4%ED%94%84/"
+                    data-tooltip="🗯 리눅스 리다이렉션/파이프, 프로세스 관련 명령어"
+                    aria-label="PREVIOUS: 🗯 리눅스 리다이렉션/파이프, 프로세스 관련 명령어"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/05/15/%EB%B6%80%ED%8C%85%EC%9D%98-%EC%9D%B4%ED%95%B4/"
+                    data-tooltip="💻 부팅의 이해"
+                    aria-label="NEXT: 💻 부팅의 이해"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2021/05/18/%EB%A6%AC%EB%88%85%EC%8A%A4%EC%84%9C%EB%B2%84EC2/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2021/05/18/%EB%A6%AC%EB%88%85%EC%8A%A4%EC%84%9C%EB%B2%84EC2/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=http://yoursite.com/2021/05/18/%EB%A6%AC%EB%88%85%EC%8A%A4%EC%84%9C%EB%B2%84EC2/"
+                    title="Share on Google+"
+                    aria-label="Share on Google+"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a
+                        class="post-action-btn btn btn--default"
+                        href="#disqus_thread"
+                        aria-label="Leave a comment"
+                    >
+                        <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="Contents">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+    <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+        <i id="btn-close-shareoptions" class="fa fa-times"></i>
+        <ul class="share-options">
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2021/05/18/%EB%A6%AC%EB%88%85%EC%8A%A4%EC%84%9C%EB%B2%84EC2/"
+                        aria-label="Share on Facebook"
+                    >
+                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://twitter.com/intent/tweet?text=http://yoursite.com/2021/05/18/%EB%A6%AC%EB%88%85%EC%8A%A4%EC%84%9C%EB%B2%84EC2/"
+                        aria-label="Share on Twitter"
+                    >
+                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://plus.google.com/share?url=http://yoursite.com/2021/05/18/%EB%A6%AC%EB%88%85%EC%8A%A4%EC%84%9C%EB%B2%84EC2/"
+                        aria-label="Share on Google+"
+                    >
+                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+
+            
+        </div>
+        
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/221eb22c21ff8475b8c63271e349b77d?s=110" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Suyan Kim</h4>
+        <!--  -->
+            <!-- <div id="about-card-bio"><p>author.bio</p>
+</div> -->
+            <div id="about-card-bio">안녕하세요, 서버 백엔드 개발자 동글씨입니다.</div>
+        <!--  -->
+        <!--  -->
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <!-- <p>Backend Developer</p>
+ -->
+                Backend Developer
+            </div>
+        <!--  -->
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                Korea
+            </div>
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/null');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/tranquilpeak.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+        <script>
+          var disqus_config = function() {
+            this.page.url = 'http://yoursite.com/2021/05/18/%EB%A6%AC%EB%88%85%EC%8A%A4%EC%84%9C%EB%B2%84EC2/';
+              
+            this.page.identifier = '2021/05/18/리눅스서버EC2/';
+              
+          };
+          (function() {
+            var d = document, s = d.createElement('script');
+            var disqus_shortname = 'ksso730-github-io';
+            s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+    
+
+
+
+
+    </body>
+</html>
